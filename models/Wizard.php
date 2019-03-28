@@ -1,7 +1,6 @@
 <?php
 namespace SSH\Models;
 
-use SSH\Core\Model;
 use SSH\Core\MySqliModel;
 
 /**

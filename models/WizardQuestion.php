@@ -4,13 +4,13 @@ namespace SSH\Models;
 use SSH\Core\MySqliModel;
 
 /**
- * Class Question
+ * Class WizardQuestion
  * @package SSH\Models
  */
-class Question extends MySqliModel{
+class WizardQuestion extends MySqliModel{
 
     /**
      * @var string table name
      */
-    protected $table = 'question';
+    protected $table = 'wizard_question';
 }

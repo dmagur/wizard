@@ -15,7 +15,7 @@ class WizardController extends Controller{
      */
     public function get(): string
     {
-        if (!isset($_REQUEST["id"]))
+        if (empty($_REQUEST["id"]))
         {
             return json_encode(["error" => "id required"]);
         }
@@ -23,6 +23,10 @@ class WizardController extends Controller{
         $wizardModel = new Wizard($this->db_connection->get_connection());
 
         $wizard = $wizardModel->get($_REQUEST["id"]);
+
+        if ($wizard === null) {
+            return json_encode(["error" => "wizard not found"]);
+        }
 
         return json_encode($wizard);
     }
@@ -82,5 +86,7 @@ class WizardController extends Controller{
         if (empty($data["num_pages"])) {
             return false;
         }
+
+        return true;
     }
 }

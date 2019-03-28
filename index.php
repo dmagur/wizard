@@ -14,6 +14,8 @@ try {
     print $app->run();
 }
 catch (Exception $e){
-    var_dump($e);
+    print_r($e);
+    /** @todo log exception */
+    print json_encode(["error" => "server error"]);
 }
 session_write_close();

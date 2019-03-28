@@ -78,13 +78,9 @@ class MySqliModel implements ModelContract{
      * @param int $id
      * @return array|null
      */
-    public function delete(int $id): array
+    public function delete(int $id)
     {
         $id = $this->db->real_escape_string($id);
-        $res = $this->db->query("DELETE * FROM `".$this->table."` WHERE id='$id'");
-        if ($res)
-            return $res->fetch_assoc();
-        else
-            return null;
+        $this->db->query("DELETE FROM `".$this->table."` WHERE id='$id'");
     }
 }

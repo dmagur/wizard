@@ -2,34 +2,13 @@
 namespace SSH\Controllers;
 
 use SSH\Core\Controller;
-use SSH\Models\Question;
+use SSH\Models\Answer;
 
 /**
- * Class QuestionController
+ * Class AnswerController
  * @package SSH\Controllers
  */
-class QuestionController extends Controller{
-
-    /**
-     * @return string
-     */
-    public function get(): string
-    {
-        if (empty($_REQUEST["id"]))
-        {
-            return json_encode(["error" => "id required"]);
-        }
-
-        $questionModel = new Question($this->db_connection->get_connection());
-
-        $question = $questionModel->get($_REQUEST["id"]);
-
-        if ($question === null) {
-            return json_encode(["error" => "question not found"]);
-        }
-
-        return json_encode($question);
-    }
+class AnswerController extends Controller{
 
     /**
      * @return string
@@ -45,12 +24,12 @@ class QuestionController extends Controller{
             return json_encode(["error" => "data invalid"]);
         }
 
-        $questionModel = new Question($this->db_connection->get_connection());
+        $model = new Answer($this->db_connection->get_connection());
 
         if (isset($_REQUEST["data"]["id"])) {
-            $questionModel->update($_REQUEST["data"]);
+            $model->update($_REQUEST["data"]);
         } else {
-            $questionModel->insert($_REQUEST["data"]);
+            $model->insert($_REQUEST["data"]);
         }
 
         return json_encode(['success' => true]);
@@ -66,9 +45,9 @@ class QuestionController extends Controller{
             return json_encode(["error" => "id required"]);
         }
 
-        $questionModel = new Question($this->db_connection->get_connection());
+        $model = new Answer($this->db_connection->get_connection());
 
-        $questionModel->delete($_REQUEST["id"]);
+        $model->delete($_REQUEST["id"]);
 
         return json_encode(["success" => true]);
     }
@@ -83,7 +62,7 @@ class QuestionController extends Controller{
             return false;
         }
 
-        if (empty($data["type"])) {
+        if (empty($data["question_id"])) {
             return false;
         }
 
